@@ -1,8 +1,22 @@
-Doctype
-  html
-     head
-        meta(charset="UTF-8")/
-        title PERSONAL BLOG 
-     body
-        h1#myHeading Personal Blog
-        h3.firstParagraph My first Article
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Personal Blog
+    link(rel="stylesheet" href="styles.css") 
+  body
+    header
+      div.container
+        h1.blog-name Personal Blog
+        a(href="http://", target="_blank", rel="noopener noreferrer", class="button") + Add
+      section.posts(id="posts")
+        div.container
+          div.posts-grid
+            each post, index in posts
+
+                div.post
+                  h3.title= post.title
+                  a(href="http://") Edit 
+                  p.description= post.description
+  
