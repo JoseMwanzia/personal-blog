@@ -1,5 +1,5 @@
 body {
-    font-family:'Comic Sans';
+    font-family:'Comic Sans MS', cursive;
     margin: 100px;
     padding: 0 100px;
     line-height: 1.6;
@@ -10,9 +10,12 @@ body {
   justify-content: space-between; 
   align-items: center;
 }
-
-.blog-name {
-  font-weight: bold;
+.article-container {
+  font-family:'Comic Sans MS', cursive;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  color: yellow;
 }
 
 .button{
@@ -20,11 +23,14 @@ body {
   font-weight: bolder;
   text-decoration: none;
 }
-  
+
 .post {
   display: flex;
-  justify-content: space-between; 
+  justify-content: flex-start;
   align-items: center;
+  gap: 250px;
 }
   
-  
+.description {
+  color: grey;
+}
