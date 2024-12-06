@@ -41,4 +41,19 @@ app.get('/article/:artcleId', async (req, res) => {
     }
 })
 
+app.get('/admin', async (req, res) => {
+    try {
+        const readDir = fs.readdirSync('./files');
+
+        const articles = readDir.map(article => {
+            const readFiles = fs.readFileSync(`./files/${article}`, 'utf8')
+            return { article, content: JSON.parse(readFiles) }
+        })
+        res.render('dashboard.pug', { articles })
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Failed to load the files!')
+    }
+})
+
 app.listen(port, () => { console.log(`App listening on port ${port}`) })
