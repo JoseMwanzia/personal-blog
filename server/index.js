@@ -56,4 +56,12 @@ app.get('/admin', async (req, res) => {
     }
 })
 
+app.get('/new', (req, res) => {
+    res.render('addArticle.pug')
+})
+
+app.post('/new', (req, res) => {
+    req.body
+})
+
 app.listen(port, () => { console.log(`App listening on port ${port}`) })
