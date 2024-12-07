@@ -1,0 +1,28 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title New Article
+    link(rel="stylesheet", href="styles.css") 
+  body
+    header
+      div.container
+        h1 New Article
+        
+      div.articles(id="articles")
+
+        form(method='POST' action='/new' style="display: flex; flex-direction: column; gap: 10px;")
+            div.form-group
+              //- label(for='article-title') Article:
+              input#article-title.form-control(type='text', style="width: 580px; border: solid black 2px" placeholder='Article Title' name='article-title')
+            div.form-group
+              //- label(for='date') Publishing Date:
+              input#date.form-control(type='date',style="width: 580px; border: solid black 2px" value=`Publish` name='date')
+            div.form-group
+              //- label(for='content') Content:
+              textarea(type='text', rows=10 cols=70 placeholder='Content' name='content' style="border: solid black 2px")
+            div.form-group
+              button.btn.btn-primary(type="submit", name="asdf") Publish
+
+  
