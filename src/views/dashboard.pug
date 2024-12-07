@@ -3,13 +3,13 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    title Personal Blog
+    title Dashboard
     link(rel="stylesheet", href="styles.css") 
   body
     header
       div.container
         h1 Personal Blog 
-        a(href="http://", target="_blank", rel="noopener noreferrer", class="button") + Add
+        a(href="/new" class="button") + Add
       div.articles(id="articles")
             each post in articles
               form(action=`/admin`, method="get") 
