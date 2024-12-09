@@ -4,6 +4,8 @@ const fs = require('node:fs')
 const port = 3000;
 
 app.use(express.static('./src/views'));
+app.use(express.urlencoded({ extended: true })) // Middleware to parse URL-encoded form data
+
 app.set('view engine', 'pug');
 app.set('views', './src/views')
 
@@ -61,7 +63,25 @@ app.get('/new', (req, res) => {
 })
 
 app.post('/new', (req, res) => {
-    req.body
+    const { title, date, content } = req.body;
+
+    let nextId = () => {
+        const readDir = fs.readdirSync('./files')
+        return readDir.length + 1
+    }
+
+    let data = {
+        id: nextId(),
+        title,
+        publishing_date: date,
+        content
+    }
+
+    fs.writeFile(`./files/${title}.json`, JSON.stringify(data, null, 2), (err, data) => {
+        if (err) { console.log(err) }
+        console.log('Succefully saved the file!');
+    })
+    res.send('Data received successfully!');
 })
 
 app.listen(port, () => { console.log(`App listening on port ${port}`) })
