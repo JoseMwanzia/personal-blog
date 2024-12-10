@@ -102,5 +102,40 @@ app.get('/edit/:articleId', async (req, res) => {
     }
 })
 
+app.put('/edit/:articleId', (req, res) => {
+    try {
+        // Step 1: Get the attributes from 'req' objects
+        const { title, date, content } = req.body;
+        const { articleId } = req.params;
+
+        // Step 2: Read the file-names in the directory
+        const readDir = fs.readdirSync(`./files`, 'utf8');
+
+        // Step 3:Find the specific file name
+        const article = readDir.find((article) => {
+            const readFiles = fs.readFileSync(`./files/${article}`, 'utf-8');
+            return articleId === JSON.parse(readFiles).id
+        })
+
+        // Step 4: Read the current file content
+        let readFile = fs.readFileSync(`./files/${article}`, 'utf8');
+        readFile = JSON.parse(readFile)
+
+        // Step 5: Modify the specific keys
+        readFile.title = title
+        readFile.publishing_date = date
+        readFile.content = content
+
+        // Step 6: Write the updated content back to the file
+        fs.writeFileSync(`./files/${article}`, JSON.stringify(readFile, null, 2), 'utf-8')
+
+        // Step 7: Send a response back to the client
+        res.json({ success: true, redirectTo: `/admin` });
+    } catch (error) {
+        console.log(error);
+        res.status(500).send('Failed to load the files!')
+    }
+})
+
 
 app.listen(port, () => { console.log(`App listening on port ${port}`) })
