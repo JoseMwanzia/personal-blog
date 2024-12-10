@@ -84,4 +84,23 @@ app.post('/new', (req, res) => {
     res.send('Data received successfully!');
 })
 
+app.get('/edit/:articleId', async (req, res) => {
+    try {
+        const article_id = req.params.articleId;
+        const readDir = fs.readdirSync(`./files`, 'utf8');
+
+        const article = readDir.find((article) => {
+            const readFiles = fs.readFileSync(`./files/${article}`, 'utf8')
+            return article_id === JSON.parse(readFiles).id
+        })
+        const readFiles = fs.readFileSync(`./files/${article}`, 'utf8')
+
+        res.render('editPage.pug', { article, contentDetails: JSON.parse(readFiles) })
+    } catch (error) {
+        console.log(error)
+        res.status(500).send('Failed to load the files!')
+    }
+})
+
+
 app.listen(port, () => { console.log(`App listening on port ${port}`) })
