@@ -5,6 +5,7 @@ const port = 3000;
 
 app.use(express.static('./src/views'));
 app.use(express.urlencoded({ extended: true })) // Middleware to parse URL-encoded form data
+app.use(express.json())
 
 app.set('view engine', 'pug');
 app.set('views', './src/views')
