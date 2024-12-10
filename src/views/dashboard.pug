@@ -11,11 +11,13 @@ html(lang="en")
         h1 Personal Blog 
         a(href="/new" class="button") + Add
       div.articles(id="articles")
-            each post in articles
-              form(action=`/admin`, method="get") 
-                span(class="post" onclick="this.closest('form').submit()" style="cursor: pointer")
-                  h3.title= post.article
-                  h3.description Edit 
-                  p.description Delete  
+        each post in articles
+          div.article-container
+            form(action=`/admin`, method="GET") 
+              span(class="post" onclick="this.closest('form').submit()" style="cursor: pointer")
+                h3.title= post.article
+            form(action=`/edit/${post.content.id}`, method='GET' style="cursor: pointer")              
+              h3.description(onclick="this.closest('form').submit()") Edit 
+              p.description Delete  
 
   
