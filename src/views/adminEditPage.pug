@@ -26,7 +26,6 @@ html(lang="en")
             const title = document.getElementById('article-title').value
             const date = document.getElementById('date').value
             const content = document.getElementById('content').value
-
             const contentDetail = !{JSON.stringify(contentDetails)}
 
             fetch(`/edit/${contentDetail.id}`, {

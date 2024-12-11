@@ -18,7 +18,7 @@ app.get('/home', async (req, res) => {
             const readFiles = fs.readFileSync(`./files/${article}`, 'utf8')
             return { article, content: JSON.parse(readFiles) }
         })
-        res.render('index.pug', { articles })
+        res.render('home.pug', { articles })
     } catch (error) {
         console.log(error);
         res.status(500).send('Failed to load the files!')
@@ -37,7 +37,7 @@ app.get('/article/:artcleId', async (req, res) => {
         })
 
         const readFile = await fs.readFileSync(`./files/${article}`, 'utf8')
-        res.render('article.pug', { article: await JSON.parse(readFile) })
+        res.render('readArticle.pug', { article: await JSON.parse(readFile) })
     } catch (error) {
         console.log(error)
         res.status(500).send('Failed to load the files')
@@ -52,7 +52,7 @@ app.get('/admin', async (req, res) => {
             const readFiles = fs.readFileSync(`./files/${article}`, 'utf8')
             return { article, content: JSON.parse(readFiles) }
         })
-        res.render('dashboard.pug', { articles })
+        res.render('adminDashboard.pug', { articles })
     } catch (error) {
         console.log(error);
         res.status(500).send('Failed to load the files!')
@@ -60,7 +60,7 @@ app.get('/admin', async (req, res) => {
 })
 
 app.get('/new', (req, res) => {
-    res.render('addArticle.pug')
+    res.render('newArticle.pug')
 })
 
 app.post('/new', (req, res) => {
@@ -96,7 +96,7 @@ app.get('/edit/:articleId', async (req, res) => {
         })
         const readFiles = fs.readFileSync(`./files/${article}`, 'utf8')
 
-        res.render('editPage.pug', { article, contentDetails: JSON.parse(readFiles) })
+        res.render('adminEditPage.pug', { article, contentDetails: JSON.parse(readFiles) })
     } catch (error) {
         console.log(error)
         res.status(500).send('Failed to load the files!')
