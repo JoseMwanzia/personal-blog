@@ -138,5 +138,27 @@ app.put('/edit/:articleId', (req, res) => {
     }
 })
 
+app.delete(`/delete/:articleId`, (req, res) => {
+    // Step 1: Get the attributes from 'req' objects
+    const { articleId } = req.params;
+
+    // Step 2: Sync read the file-names in the directory
+    const readDir = fs.readdirSync('./files', 'utf8')
+    console.log(readDir);
+
+    // Step 3:Find the specific file name
+    const foundFileName = readDir.find((article) => {
+        const readFiles = fs.readFileSync(`./files/${article}`, 'utf8')
+        return JSON.parse(readFiles).id == articleId
+    })
+    
+    // Step 4: Delete the file
+    fs.unlink(`./files/${foundFileName}`, (err) => {
+        if (err) {console.log(err)}
+    })
+
+    // Step 5: Send a response back to the client
+    res.status(204).json({ success: true });
+})
 
 app.listen(port, () => { console.log(`App listening on port ${port}`) })
