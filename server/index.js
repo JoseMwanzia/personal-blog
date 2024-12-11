@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const fs = require('node:fs')
 const port = 3000;
+const authMiddleware = require('./auth')
 
 app.use(express.static('./src/views'));
 app.use(express.urlencoded({ extended: true })) // Middleware to parse URL-encoded form data
@@ -44,7 +45,7 @@ app.get('/article/:artcleId', async (req, res) => {
     }
 })
 
-app.get('/admin', async (req, res) => {
+app.get('/admin', authMiddleware, async (req, res) => {
     try {
         const readDir = fs.readdirSync('./files');
 
@@ -59,7 +60,7 @@ app.get('/admin', async (req, res) => {
     }
 })
 
-app.get('/new', (req, res) => {
+app.get('/new', authMiddleware,  (req, res) => {
     res.render('newArticle.pug')
 })
 
@@ -85,7 +86,7 @@ app.post('/new', (req, res) => {
     res.send('Data received successfully!');
 })
 
-app.get('/edit/:articleId', async (req, res) => {
+app.get('/edit/:articleId', authMiddleware, async (req, res) => {
     try {
         const article_id = req.params.articleId;
         const readDir = fs.readdirSync(`./files`, 'utf8');
@@ -103,7 +104,7 @@ app.get('/edit/:articleId', async (req, res) => {
     }
 })
 
-app.put('/edit/:articleId', (req, res) => {
+app.put('/edit/:articleId', authMiddleware,  (req, res) => {
     try {
         // Step 1: Get the attributes from 'req' objects
         const { title, date, content } = req.body;
@@ -138,7 +139,7 @@ app.put('/edit/:articleId', (req, res) => {
     }
 })
 
-app.delete(`/delete/:articleId`, (req, res) => {
+app.delete(`/delete/:articleId`, authMiddleware, (req, res) => {
     // Step 1: Get the attributes from 'req' objects
     const { articleId } = req.params;
 
