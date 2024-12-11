@@ -1,6 +1,7 @@
 # Article Management System
 
 This project is a Node.js and Express-based server that allows administrators to manage articles stored in JSON files. The server uses Pug as the templating engine to render views and provides functionalities such as viewing, creating, editing, and deleting articles. The frontend is served from the `/src/views` directory, while the articles are stored in the `/files` directory.
+[Try the project](https://roadmap.sh/projects/personal-blog)
 
 ## Features
 
