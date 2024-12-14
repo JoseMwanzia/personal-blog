@@ -3,6 +3,7 @@ const app = express();
 const fs = require('node:fs')
 const port = 3000;
 const authMiddleware = require('./auth')
+const logger = require('./logger.js')
 
 app.use(express.static('./src/views'));
 app.use(express.urlencoded({ extended: true })) // Middleware to parse URL-encoded form data
@@ -21,7 +22,7 @@ app.get('/home', async (req, res) => {
         })
         res.render('home.pug', { articles })
     } catch (error) {
-        console.log(error);
+        logger.error(error);
         res.status(500).send('Failed to load the files!')
     }
 })
