@@ -12,6 +12,10 @@ app.use(express.json())
 app.set('view engine', 'pug');
 app.set('views', './src/views')
 
+app.get('/' , (req, res) => {
+    res.redirect('/home')
+})
+
 app.get('/home', async (req, res) => {
     try {
         const readDir = fs.readdirSync('./files');
