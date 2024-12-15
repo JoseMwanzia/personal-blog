@@ -11,10 +11,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@logtail/node": "^0.5.2",
+    "@logtail/winston": "^0.5.2",
     "base-64": "^1.0.0",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "pug": "^3.0.3"
+    "pug": "^3.0.3",
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
