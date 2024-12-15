@@ -53,7 +53,7 @@ app.get('/article/:artcleId', async (req, res) => {
         const readFile = await fs.readFileSync(`./files/${article}`, 'utf8')
         res.render('readArticle.pug', { article: await JSON.parse(readFile) })
     } catch (error) {
-        console.log(error)
+        logger.error(error)
         res.status(500).send('Failed to load the files')
     }
 })
@@ -68,7 +68,7 @@ app.get('/admin', authMiddleware, async (req, res) => {
         })
         res.render('adminDashboard.pug', { articles })
     } catch (error) {
-        console.log(error);
+        logger.error(error);
         res.status(500).send('Failed to load the files!')
     }
 })
@@ -112,7 +112,7 @@ app.get('/edit/:articleId', authMiddleware, async (req, res) => {
 
         res.render('adminEditPage.pug', { article, contentDetails: JSON.parse(readFiles) })
     } catch (error) {
-        console.log(error)
+        logger.error(error)
         res.status(500).send('Failed to load the files!')
     }
 })
@@ -147,7 +147,7 @@ app.put('/edit/:articleId', authMiddleware,  (req, res) => {
         // Step 7: Send a response back to the client
         res.json({ success: true, redirectTo: `/admin` });
     } catch (error) {
-        console.log(error);
+        logger.error(error);
         res.status(500).send('Failed to load the files!')
     }
 })
