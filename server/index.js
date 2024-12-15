@@ -8,17 +8,6 @@ const logger = require('./logger.js')
 app.use(express.static('./src/views'));
 app.use(express.urlencoded({ extended: true })) // Middleware to parse URL-encoded form data
 app.use(express.json())
-app.use((req, res, next) => {
-    const visitorDetails = {
-        ip: req.ip,
-        method: req.method,
-        url: req.originalUrl,
-        userAgent: req.headers['user-agent'],
-      };
-    
-      logger.info('Visitor details', visitorDetails); 
-      next();
-})
 
 app.set('view engine', 'pug');
 app.set('views', './src/views')
@@ -31,13 +20,21 @@ app.get('/home', async (req, res) => {
     try {
         const readDir = fs.readdirSync('./files');
 
+        const visitorDetails = {
+            ip: req.ip,
+            method: req.method,
+            url: req.originalUrl,
+            userAgent: req.headers['user-agent'],
+        };
+        logger.info('Visitor details', visitorDetails); 
+
         const articles = readDir.map(article => {
             const readFiles = fs.readFileSync(`./files/${article}`, 'utf8')
             return { article, content: JSON.parse(readFiles) }
         })
         res.render('home.pug', { articles })
     } catch (error) {
-        logger.error(error);
+        logger.error('ERROR DETAIL', error);
         res.status(500).send('Failed to load the files!')
     }
 })
