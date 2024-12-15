@@ -8,12 +8,26 @@ const logger = require('./logger.js')
 app.use(express.static('./src/views'));
 app.use(express.urlencoded({ extended: true })) // Middleware to parse URL-encoded form data
 app.use(express.json())
+app.use((req, res, next) => {
+    const visitorDetails = {
+        ip: req.ip,
+        method: req.method,
+        url: req.originalUrl,
+        userAgent: req.headers['user-agent'],
+      };
+    
+      logger.info('Visitor details', visitorDetails); 
+      next();
+})
 
 app.set('view engine', 'pug');
 app.set('views', './src/views')
 
+app.get('/', (req, res) => {
+    res.redirect('/home')
+})
 
-app.get('/', async (req, res) => {
+app.get('/home', async (req, res) => {
     try {
         const readDir = fs.readdirSync('./files');
 
