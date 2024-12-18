@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Edit Article</title></head><body><header><div class="container"><h1>Edit Article</h1></div><div class="articles" id="articles"><form style="display: flex; flex-direction: column; gap: 10px;"><div class="form-group"><input class="form-control" id="article-title" type="text" style="width: 580px; border: solid black 2px" placeholder="Update Article Title" name="title" value="Default Title"></div><div class="form-group"><input class="form-control" id="date" type="date-local" style="width: 580px; border: solid black 2px" name="date" value=""></div><div class="form-group"><textarea id="content" type="text" rows="10" cols="70" placeholder="Update Content" name="content" style="border: solid black 2px"></textarea></div><div class="form-group"><button class="btn btn-primary" id="update-button" type="button">Update</button></div></form><script>document.getElementById('update-button').addEventListener('click', function() {
+
+  const title = document.getElementById('article-title').value
+  const date = document.getElementById('date').value
+  const content = document.getElementById('content').value
+  const contentDetail = 
+
+  fetch(`/edit/${contentDetail.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type':'application/json',
+    },
+    body: JSON.stringify({ title , date , content }),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success && data.redirectTo) {
+        window.location.href = data.redirectTo; // Redirect to the new page
+      } else {
+        console.error('Error:', data.error);
+      }
+    })
+    .catch(error => console.log('Error:', error));
+})</script></div></header></body></html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Admin Dashboard</title><link rel="stylesheet" href="styles.css"><script>async function deleteItem(id) {
+  try {
+    const response = await fetch(`/delete/${id}`, {
+      method: 'DELETE'
+    });
+    if (response.ok) {
+      window.location.reload(); // Reload the page after successful deletion
+    } else {
+      console.error('Failed to delete item:', response.statusText);
+    }
+  } catch (err) {
+    console.error('Error during delete request:', err);
+  }
+}</script></head><body><header><div class="container"><h1>Personal Blog </h1><a class="button" href="/new">+ Add</a></div><div class="articles" id="articles"><p>No articles available.</p></div></header></body></html>
